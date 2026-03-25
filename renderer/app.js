@@ -139,6 +139,8 @@ function submitQuiz() {
         const questionDiv = document.createElement('div');
         questionDiv.className = correct ? 'correct-answer' : 'wrong-answer';
 
+        console.log(`Question ${i + 1}: User answered ${userAnswers[i]}, correct answer is ${q.Correct}, correct: ${correct}`);
+
         questionDiv.innerHTML = `
             <strong>Q${i + 1} (ID: ${q.QuestionID}): ${q.Question}</strong><br>
             Your answer: ${userAnswers[i] || 'Not answered'}<br>
