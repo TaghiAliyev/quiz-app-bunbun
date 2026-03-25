@@ -122,25 +122,29 @@ function prev() {
 }
 
 function submitQuiz() {
+    // Hide the quiz section
     document.getElementById('quiz').style.display = 'none';
+
+    // Show results section
     const resultDiv = document.getElementById('result');
     resultDiv.style.display = 'block';
-    resultDiv.innerHTML = `<h2>Quiz Completed!</h2>
-                           <h3>Your Score: ${quiz.filter((q,i)=>userAnswers[i]===q.Correct).length} / ${quiz.length}</h3>
-                           <h3>Question Breakdown:</h3>`;
+    resultDiv.innerHTML = `
+        <h2>Quiz Completed!</h2>
+        <h3>Your Score: ${quiz.filter((q,i)=>userAnswers[i]===q.Correct).length} / ${quiz.length}</h3>
+        <h3>Question Breakdown:</h3>
+    `;
 
+    // Create ordered list for questions
     const list = document.createElement('ol');
 
     quiz.forEach((q, i) => {
         const correct = userAnswers[i] === q.Correct;
+
         const li = document.createElement('li');
 
-        // Use a div with a class instead of inline style
+        // Wrap each question in a div and assign a class for styling
         const questionDiv = document.createElement('div');
         questionDiv.className = correct ? 'correct-answer' : 'wrong-answer';
-
-        console.log(`Question ${i + 1}: User answered ${userAnswers[i]}, correct answer is ${q.Correct}, correct: ${correct}`);
-
         questionDiv.innerHTML = `
             <strong>Q${i + 1} (ID: ${q.QuestionID}): ${q.Question}</strong><br>
             Your answer: ${userAnswers[i] || 'Not answered'}<br>
@@ -153,7 +157,7 @@ function submitQuiz() {
 
     resultDiv.appendChild(list);
 
-    // Add navigation buttons as before
+    // Add navigation buttons below
     const btnContainer = document.createElement('div');
     btnContainer.style.marginTop = '20px';
 
