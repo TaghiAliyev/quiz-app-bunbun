@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz App</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- XLSX for Excel files -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  
+  <!-- PDF.js for rendering PDF pages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  
+  <!-- Your main JS -->
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <!-- Setup / File Upload Section -->
+  <div id="setup">
+    <h2>Upload Files & Generate Quiz</h2>
+    <input type="file" id="excel" accept=".xlsx,.xls"><br><br>
+    <input type="file" id="pdf" accept=".pdf"><br><br>
+    <label>Number of Questions:</label>
+    <input type="number" id="num" value="30"><br><br>
+    <button id="generateBtn">Generate Quiz</button>
+  </div>
+
+  <!-- Quiz Section -->
+  <div id="quiz" style="display:none;">
+    <h2 id="questionText"></h2>
+    <canvas id="pdfCanvas"></canvas>
+    <div id="answers"></div>
+    <button id="prevBtn" onclick="prev()">Previous</button>
+    <button id="nextBtn" onclick="next()">Next</button>
+    <button id="submitBtn" onclick="submitQuiz()" disabled>Submit Quiz</button>
+  </div>
+
+  <!-- Result Section -->
+  <div id="result" style="display:none;"></div>
+
+</body>
+</html>
