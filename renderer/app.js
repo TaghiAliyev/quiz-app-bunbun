@@ -136,27 +136,32 @@ function submitQuiz() {
     });
 
     // Header
-    resultDiv.innerHTML = `<h2>Quiz Completed!</h2>
-                           <h3>Your Score: ${score} / ${quiz.length}</h3>
-                           <h3>Question Breakdown:</h3>`;
+    resultDiv.innerHTML = `
+        <h2>Quiz Completed!</h2>
+        <h3>Your Score: ${score} / ${quiz.length}</h3>
+        <h3>Question Breakdown:</h3>
+    `;
 
-    // Create list
     const list = document.createElement('ol');
+
     quiz.forEach((q, i) => {
         const correct = userAnswers[i] === q.Correct;
 
-        // Embed color directly in HTML
-        const color = correct ? 'black' : 'red';
-        const liHTML = `<span style="color:${color}">
-                            <strong>Q${i + 1} (ID: ${q.QuestionID}): ${q.Question}</strong><br>
-                            Your answer: ${userAnswers[i] || 'Not answered'}<br>
-                            Correct answer: ${q.Correct}
-                        </span>`;
-
+        // Wrap the whole question block in a container
         const li = document.createElement('li');
-        li.innerHTML = liHTML;
+
+        const questionBlock = document.createElement('div');
+        questionBlock.style.color = correct ? 'black' : 'red'; // red for wrong answers
+        questionBlock.innerHTML = `
+            <strong>Q${i + 1} (ID: ${q.QuestionID}): ${q.Question}</strong><br>
+            Your answer: ${userAnswers[i] || 'Not answered'}<br>
+            Correct answer: ${q.Correct}
+        `;
+
+        li.appendChild(questionBlock);
         list.appendChild(li);
     });
+
     resultDiv.appendChild(list);
 
     // Navigation buttons
