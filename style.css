@@ -23,14 +23,14 @@ canvas {
     background-color: #d3d3d3; /* light gray on hover */
 }
 
-/* Wrong questions highlighted in red */
-.wrong-answer {
-    color: red;
-    font-weight: normal;
+/* Force all text inside wrong-answer to be red */
+.wrong-answer, 
+.wrong-answer * {
+    color: red !important;
 }
 
-/* Correct questions in black (optional) */
-.correct-answer {
-    color: black;
-    font-weight: normal;
+/* Correct answers stay black (or green) */
+.correct-answer,
+.correct-answer * {
+    color: black !important; /* or green if you prefer */
 }
