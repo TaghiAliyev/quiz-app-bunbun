@@ -143,20 +143,18 @@ function submitQuiz() {
     // Create list
     const list = document.createElement('ol');
     quiz.forEach((q, i) => {
-        const li = document.createElement('li');
-
-        // Check if answer was correct
         const correct = userAnswers[i] === q.Correct;
 
-        li.innerHTML = `<strong>Q${i + 1} (ID: ${q.QuestionID}): ${q.Question}</strong><br>
-                        Your answer: ${userAnswers[i] || 'Not answered'}<br>
-                        Correct answer: ${q.Correct}`;
+        // Embed color directly in HTML
+        const color = correct ? 'black' : 'red';
+        const liHTML = `<span style="color:${color}">
+                            <strong>Q${i + 1} (ID: ${q.QuestionID}): ${q.Question}</strong><br>
+                            Your answer: ${userAnswers[i] || 'Not answered'}<br>
+                            Correct answer: ${q.Correct}
+                        </span>`;
 
-        // Highlight wrong answers in red
-        if (!correct) {
-            li.style.color = 'red';
-        }
-
+        const li = document.createElement('li');
+        li.innerHTML = liHTML;
         list.appendChild(li);
     });
     resultDiv.appendChild(list);
