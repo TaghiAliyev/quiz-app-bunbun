@@ -123,54 +123,64 @@ function prev() {
 
 function submitQuiz() {
     // Hide quiz
-    document.getElementById('quiz').style.display = 'none'
+    document.getElementById('quiz').style.display = 'none';
 
     // Show results page
-    const resultDiv = document.getElementById('result')
-    resultDiv.style.display = 'block'
+    const resultDiv = document.getElementById('result');
+    resultDiv.style.display = 'block';
 
-    // Score calculation
-    let score = 0
+    // Calculate score
+    let score = 0;
     quiz.forEach((q, i) => {
-        if (userAnswers[i] === q.Correct) score++
-    })
+        if (userAnswers[i] === q.Correct) score++;
+    });
 
     // Header
     resultDiv.innerHTML = `<h2>Quiz Completed!</h2>
                            <h3>Your Score: ${score} / ${quiz.length}</h3>
-                           <h3>Question Breakdown:</h3>`
+                           <h3>Question Breakdown:</h3>`;
 
-    // Per-question breakdown
-    const list = document.createElement('ol')
+    // Create list
+    const list = document.createElement('ol');
     quiz.forEach((q, i) => {
-        const li = document.createElement('li')
-        li.innerHTML = `<strong>Q${i+1} (ID: ${q.QuestionID}): ${q.Question}</strong><br>
+        const li = document.createElement('li');
+
+        // Check if answer was correct
+        const correct = userAnswers[i] === q.Correct;
+
+        li.innerHTML = `<strong>Q${i + 1} (ID: ${q.QuestionID}): ${q.Question}</strong><br>
                         Your answer: ${userAnswers[i] || 'Not answered'}<br>
-                        Correct answer: ${q.Correct}`
-        list.appendChild(li)
-    })
-    resultDiv.appendChild(list)
+                        Correct answer: ${q.Correct}`;
+
+        // Highlight wrong answers in red
+        if (!correct) {
+            li.style.color = 'red';
+        }
+
+        list.appendChild(li);
+    });
+    resultDiv.appendChild(list);
 
     // Navigation buttons
-    const btnContainer = document.createElement('div')
-    btnContainer.style.marginTop = '20px'
+    const btnContainer = document.createElement('div');
+    btnContainer.style.marginTop = '20px';
 
-    const restartBtn = document.createElement('button')
-    restartBtn.innerText = 'Go to Start'
+    const restartBtn = document.createElement('button');
+    restartBtn.innerText = 'Go to Start';
     restartBtn.onclick = () => {
-        document.getElementById('result').style.display = 'none'
-        document.getElementById('setup').style.display = 'block'
-    }
+        document.getElementById('result').style.display = 'none';
+        document.getElementById('setup').style.display = 'block';
+    };
 
-    const newQuizBtn = document.createElement('button')
-    newQuizBtn.innerText = 'Generate New Quiz'
-    newQuizBtn.style.marginLeft = '10px'
+    const newQuizBtn = document.createElement('button');
+    newQuizBtn.innerText = 'Generate New Quiz';
+    newQuizBtn.style.marginLeft = '10px';
     newQuizBtn.onclick = () => {
-        document.getElementById('result').style.display = 'none'
-        document.getElementById('setup').style.display = 'block'
-    }
+        document.getElementById('result').style.display = 'none';
+        document.getElementById('setup').style.display = 'block';
+    };
 
-    btnContainer.appendChild(restartBtn)
-    btnContainer.appendChild(newQuizBtn)
-    resultDiv.appendChild(btnContainer)
+    btnContainer.appendChild(restartBtn);
+    btnContainer.appendChild(newQuizBtn);
+    resultDiv.appendChild(btnContainer);
 }
