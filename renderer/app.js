@@ -122,49 +122,36 @@ function prev() {
 }
 
 function submitQuiz() {
-    // Hide quiz
     document.getElementById('quiz').style.display = 'none';
-
-    // Show results page
     const resultDiv = document.getElementById('result');
     resultDiv.style.display = 'block';
-
-    // Calculate score
-    let score = 0;
-    quiz.forEach((q, i) => {
-        if (userAnswers[i] === q.Correct) score++;
-    });
-
-    // Header
-    resultDiv.innerHTML = `
-        <h2>Quiz Completed!</h2>
-        <h3>Your Score: ${score} / ${quiz.length}</h3>
-        <h3>Question Breakdown:</h3>
-    `;
+    resultDiv.innerHTML = `<h2>Quiz Completed!</h2>
+                           <h3>Your Score: ${quiz.filter((q,i)=>userAnswers[i]===q.Correct).length} / ${quiz.length}</h3>
+                           <h3>Question Breakdown:</h3>`;
 
     const list = document.createElement('ol');
 
     quiz.forEach((q, i) => {
         const correct = userAnswers[i] === q.Correct;
-
-        // Wrap the whole question block in a container
         const li = document.createElement('li');
 
-        const questionBlock = document.createElement('div');
-        questionBlock.style.color = correct ? 'black' : 'red'; // red for wrong answers
-        questionBlock.innerHTML = `
+        // Use a div with a class instead of inline style
+        const questionDiv = document.createElement('div');
+        questionDiv.className = correct ? 'correct-answer' : 'wrong-answer';
+
+        questionDiv.innerHTML = `
             <strong>Q${i + 1} (ID: ${q.QuestionID}): ${q.Question}</strong><br>
             Your answer: ${userAnswers[i] || 'Not answered'}<br>
             Correct answer: ${q.Correct}
         `;
 
-        li.appendChild(questionBlock);
+        li.appendChild(questionDiv);
         list.appendChild(li);
     });
 
     resultDiv.appendChild(list);
 
-    // Navigation buttons
+    // Add navigation buttons as before
     const btnContainer = document.createElement('div');
     btnContainer.style.marginTop = '20px';
 

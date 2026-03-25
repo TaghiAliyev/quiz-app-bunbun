@@ -22,3 +22,11 @@ canvas {
 #answers button:hover {
     background-color: #d3d3d3; /* light gray on hover */
 }
+
+.wrong-answer {
+    color: red;        /* text red */
+    font-weight: normal; /* keep question bold separately if needed */
+}
+.correct-answer {
+    color: black;      /* optional: force black for correct questions */
+}
